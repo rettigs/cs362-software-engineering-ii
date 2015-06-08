@@ -1,0 +1,2 @@
+- The Adventurer, Council Room, Smithy, Village, and Great Hall card implementations were moved from within the switch statement in cardEffect() in dominion.c to their own functions, playAdventurer(), playCouncilRoom(), playSmithy(), playVillage(), and playGreatHall(), respectively.
+- Minor bugs were added to two of the above mentioned new functions.

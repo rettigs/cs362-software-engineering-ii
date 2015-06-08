@@ -1,0 +1,9 @@
+Once minion_tarantula.c has been compiled ("make minion_tarantula.out"), you can run ./tarantula.py, which will do the following:
+
+- Run minion_tarantula.out, which performs a single test with random game state on the minion card (but can be easily modified to test anything).
+- Run gcov on dominion.c to create dominion.c.gcov.
+- Record whether the test succeeded or failed for each line that was covered (according to dominion.c.gcov)
+
+It will perform the above process a certain number of times (default 100) and then print the suspiciousness rating of every line with a non-zero rating, with a higher value being more suspicious.  Some basic bar graph visualization is also present to help easily identify suspicious lines of code.
+
+A bug was added in dominion.c at line 956, where the number of coins is only incremented by 1 instead of by 2.  My Tarantula implementation discovers this by rating that line of code with the highest suspiciousness rating.

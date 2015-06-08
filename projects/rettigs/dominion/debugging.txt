@@ -1,0 +1,32 @@
+One bug I had involved my full game tester, testdominion.c, getting "stuck", hanging during the middle of the buying process during someone's turn on certain random seed inputs (such as "11").  I used gdb to run the program until it got stuck, then terminated it and stepped through it with the "step" command to see what functions it was following, printing any pertinent values with the "print" command.  I noticed that a player still had one card buy allotted, and kept trying to buy a random card, but every time it tried, that card pile was empty, so it kept trying again with other random cards.  This is desired behaviour, except for when all of the piles are empty!  As shown below, gdb reveals that buyCard keeps returning -1 since the supplyCount of the given card is 0, and as such, G.numBuys is never decremented since buyCard never succeeds.
+
+buyCard (supplyPos=0, state=0x7fffffff77e0) at dominion.c:280
+280   who = state->whoseTurn;
+(gdb) s
+282   if (state->numBuys < 1){
+(gdb) s
+286   } else if (supplyCount(supplyPos, state) <1){
+(gdb) s
+supplyCount (card=0, state=0x7fffffff77e0) at dominion.c:321
+321   return state->supplyCount[card];
+(gdb) s
+322 }
+(gdb) print state->supplyCount[card]
+$1 = 0
+(gdb) s
+buyCard (supplyPos=0, state=0x7fffffff77e0) at dominion.c:289
+289     return -1;
+
+Since the game is supposed to end if 3 piles are empty (or if the provinces pile is empty), we should never be trying to buy cards at that point.  To resolve this, I simply added an isGameOver() call to the buy loop so it wouldn't keep trying to buy cards when all the piles were empty.  This:
+
+while(G.numBuys > 0){
+    // buy card
+}
+
+Became this:
+
+while(G.numBuys > 0 && !isGameOver(&G)){
+    // buy card
+}
+
+One of the key principles I relied on in debugging this was Agan's Rule #2: "Make it fail".  Since the bug only happened with certain sets of random numbers, I used a pseudorandom number generator rather than a truly random number generator so that I could get the same numbers by simply using the same seed.  This allowed me to test if the bug was actually fixed by running it in the same situation after the patch was applied.  This also tied in closely with Agan's Rule #9, "If you didn't fix it, it ain't fixed", as the reliable failure was necessary for me to test if patching the supposed cause of the bug actually fixed it.

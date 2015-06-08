@@ -1,0 +1,49 @@
+Running cardtest1
+cardtest1: cardtest1.c:58: main: Assertion `G.handCount[player] == orig.handCount[player] + 2' failed.
+TESTING smithy card
+RANDOM TESTS
+Aborted
+
+Running cardtest2
+TESTING village card
+RANDOM TESTS
+ALL TESTS OK
+Lines executed:100.00% of 84
+
+Running cardtest3
+cardtest3: cardtest3.c:68: main: Assertion `G.numActions == orig.numActions + 1' failed.
+TESTING minion card
+RANDOM TESTS
+Aborted
+
+Running cardtest4
+cardtest4: cardtest4.c:70: main: Assertion `G.coins == orig.coins + 2' failed.
+TESTING steward card
+RANDOM TESTS
+Aborted
+
+Running unittest1
+TESTING compare
+RANDOM TESTS
+ALL TESTS OK
+Lines executed:100.00% of 13
+
+Running unittest2
+TESTING kingdomCards
+RANDOM TESTS
+ALL TESTS OK
+Lines executed:100.00% of 11
+
+Running unittest3
+TESTING kingdomCards
+RANDOM TESTS
+DECK PROPERLY SHUFFLED 1000/1000 TIMES
+ALL TESTS OK
+Lines executed:100.00% of 17
+
+Running unittest4
+TESTING discardCard
+RANDOM TESTS
+ALL TESTS OK
+Lines executed:82.35% of 17
+

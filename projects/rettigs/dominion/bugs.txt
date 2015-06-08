@@ -1,0 +1,4 @@
+- unittest3 will often report that the shuffle() function did not shuffle the deck at all; it only reports correct shuffling about 10% of the time.
+- cardtest1 reports that the smithy card's implementation is always incorrect.
+- cardtest3 reports that the minion card's implementation is always incorrect.
+- cardtest4 reports that the steward card's implementation is incorrect when choice1 == 2; "coins" is not incremented.
